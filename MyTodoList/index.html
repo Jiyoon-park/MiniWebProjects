@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>my todos</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .completed {
+            text-decoration: line-through;
+            opacity: .8;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="header">
+            <h1>TODO LIST</h1>
+            <hr>
+        </div>
+
+        <div class="create">
+            <h3>새로운 할 일</h3>
+            <input type="text" v-model="newTodo">
+            <button @click="addTodo">제출</button>
+        </div>
+        <hr>
+        <div class="haveTodo">
+            <h3>오늘 할 일</h3>
+            
+            <ul>
+                <li v-for="todo in todoList" :class="{ completed : todo.completed }">
+                    <input type="checkbox" v-model="todo.completed">
+                    {{ todo.content }}
+                </li>
+            </ul>
+        </div>
+
+        <hr>
+        <div class="finished">
+            <h3>완료한 일</h3>
+            <ul>
+            </ul>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                todoList: [
+                    {content: 'vue 복습', completed: false},
+                    {content: 'django 복습', completed: false},
+                    {content: 'vanillar javascript 복습', completed: false},
+                ],
+                newTodo: '',
+            },
+            methods: {
+                check: function(todo) {
+                    todo.completed = !todo.completed
+                },
+                addTodo: function () {
+                    this.todoList.push({
+                        content: this.newTodo,
+                        completed: false,
+                    })
+                    this.newTodo = ""
+                },
+            },
+        })
+    </script>
+</body>
+</html>
