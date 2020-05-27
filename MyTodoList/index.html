@@ -25,22 +25,29 @@
             <button @click="addTodo">제출</button>
         </div>
         <hr>
-        <div class="haveTodo">
-            <h3>오늘 할 일</h3>
+        <div class="container">
             
-            <ul>
-                <li v-for="todo in todoList" :class="{ completed : todo.completed }">
-                    <input type="checkbox" v-model="todo.completed">
-                    {{ todo.content }}
-                </li>
-            </ul>
-        </div>
+            <div class="haveTodo">
+                <h3>오늘 할 일</h3>   
+                <ul>
+                    <p v-for="todo in doingList()" :class="{ completed : todo.completed }"  v-bind:key="todo.id">
+                        <input type="checkbox" v-model="todo.completed">
+                        {{ todo.content }}
+                    </p>
+                </ul>
+            </div>
 
-        <hr>
-        <div class="finished">
-            <h3>완료한 일</h3>
-            <ul>
-            </ul>
+            <hr>
+            <div class="finished">
+                <h3>완료한 일</h3>
+                <ul>
+                    <p v-for="todo in doneList()" :class="{ completed : todo.completed }" v-bind:key="todo.id">
+                        <input type="checkbox" v-model="todo.completed">
+                        {{ todo.content }}
+                    </p>
+                </ul>
+            </div>
+          
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -49,16 +56,13 @@
             el: '#app',
             data: {
                 todoList: [
-                    {content: 'vue 복습', completed: false},
-                    {content: 'django 복습', completed: false},
-                    {content: 'vanillar javascript 복습', completed: false},
+                    { id: 1, content: 'vue 복습', completed: false},
+                    { id: 2, content: 'django 복습', completed: false},
+                    { id: 3, content: 'vanillar javascript 복습', completed: false},
                 ],
                 newTodo: '',
             },
             methods: {
-                check: function(todo) {
-                    todo.completed = !todo.completed
-                },
                 addTodo: function () {
                     this.todoList.push({
                         content: this.newTodo,
@@ -66,6 +70,12 @@
                     })
                     this.newTodo = ""
                 },
+                doingList: function () {
+                    return this.todoList.filter(todo => !todo.completed)
+                },
+                doneList: function () {
+                    return this.todoList.filter(todo => todo.completed)
+                }
             },
         })
     </script>
