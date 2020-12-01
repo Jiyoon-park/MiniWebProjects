@@ -1,0 +1,31 @@
+* {
+  box-sizing: border-box;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 20px;
+  width: 600px;
+  height: 200px;
+  text-align: center;
+  background-color: #0000ff;
+}
+
+.btn {
+  padding: 10px 20px;
+  background-color: rgb(52, 129, 180);
+  color: white;
+  cursor: pointer;
+  border-radius: 20px;
+}
+
+.btn:hover {
+  background-color: rgb(52, 81, 211);
+  font-size: 1rem;
+}
+
+.btn:focus {
+  outline: none;
+}
