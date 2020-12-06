@@ -19,31 +19,22 @@ function addItem(e) {
     }
 }
 
+// create new Item
+let id = 0;
 function createItem(text) {
     const itemRow = document.createElement('li');
     itemRow.setAttribute('class', 'item__row');
-
-    const item = document.createElement('div');
-    item.setAttribute('class', 'item');
-    
-    const itemName = document.createElement('span');
-    itemName.textContent = text
-
-    const deleteBtn = document.createElement('button');
-    deleteBtn.setAttribute('class', 'item__delete');
-    deleteBtn.innerHTML = '<i class="far fa-trash-alt fa-lg"></i>'
-    deleteBtn.addEventListener('click', () => {
-        items.removeChild(itemRow)
-    })
-
-    const divider = document.createElement('div');
-    divider.setAttribute('class', 'item__divider');
-
-    item.appendChild(itemName);
-    item.appendChild(deleteBtn);
-    itemRow.appendChild(item);
-    itemRow.appendChild(divider);
-
+    itemRow.setAttribute('data-id', id)
+    itemRow.innerHTML = `
+        <div class="item">
+            <span class="item__name">${text}</span>
+            <button class="item__delete">
+                <i class="far fa-trash-alt fa-lg" data-id=${id}></i>
+            </button>
+        </div>
+        <div class="item__divider"></div>
+    `
+    id++;
     return itemRow;
 } 
 
@@ -53,3 +44,11 @@ input.addEventListener('keypress', (e) => {
         addItem();
     }
 });
+
+items.addEventListener('click', event => {
+    const id = event.target.dataset.id;
+    if (id) {
+        const deleteTarget = document.querySelector(`.item__row[data-id="${id}"]`);
+        deleteTarget.remove();
+    }
+})
