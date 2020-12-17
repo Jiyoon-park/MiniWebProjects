@@ -31,9 +31,7 @@ function startGame() {
     showTimerAndScore();
 }
 
-function stopGame() {
-    
-}
+function stopGame() {}
 
 function showStopButton() {
     const icon = gameBtn.querySelector('.fa-play');
@@ -48,6 +46,7 @@ function showTimerAndScore() {
 
 function initGame() {
     field.innerHTML = '';
+    gameScore.innerText = CARROT_COUNT;
     // 당근과 벌레 랜덤 배치
     addItem('carrot', CARROT_COUNT, 'img/carrot.png');
     addItem('bug', BUG_COUNT, 'img/bug.png');
