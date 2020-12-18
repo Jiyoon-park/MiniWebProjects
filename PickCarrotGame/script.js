@@ -95,7 +95,7 @@ function finishGame(result) {
     } else {
         playSound(bugSound);
     }
-    showPopUpWithText(result? 'YOU WIN' : 'YOU LOST');
+    showPopUpWithText(result? 'YOU WIN 🏆' : 'YOU LOST 💩');
 }
 
 function showStopButton() {
