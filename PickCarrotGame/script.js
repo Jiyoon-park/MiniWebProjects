@@ -20,6 +20,28 @@ let started = false;
 let score = 0;
 let timer = undefined;
 
+field.addEventListener('click', onFieldClick);
+
+function onFieldClick(event) {
+    if (started === false) {
+        return
+    }
+    const target = event.target;
+    if (target.matches('.carrot')) {
+        target.remove();
+        updateScoreBoard(++score);
+        if (score === CARROT_COUNT) {
+            finishGame(true)
+        }
+    } else if (target.matches('.bug')) {
+        finishGame(false)
+    }
+}
+
+function updateScoreBoard(score) {
+    gameScore.innerText = CARROT_COUNT - score;
+}
+
 gameBtn.addEventListener('click', () => {
     if (started) {
         stopGame();
@@ -29,6 +51,7 @@ gameBtn.addEventListener('click', () => {
 })
 
 function startGame() {
+    score = 0;
     started = true;
     initGame();
     showStopButton();
@@ -39,14 +62,30 @@ function startGame() {
 function stopGame() {
     started = false;
     stopGameTimer();
+    showStartButton();
     hideGameButton();
     showPopUpWithText('REPLAY?');
 }
 
+function finishGame(result) {
+    started = false;
+    stopGameTimer();
+    showStartButton();
+    hideGameButton();
+    showPopUpWithText(result? 'YOU WIN' : 'YOU LOST');
+}
+
 function showStopButton() {
+    gameBtn.style.visibility = 'visible';
     const icon = gameBtn.querySelector('.fa-play');
     icon.classList.add('fa-stop');
     icon.classList.remove('fa-play');
+}
+
+function showStartButton() {
+    const icon = gameBtn.querySelector('.fa-stop');
+    icon.classList.add('fa-play');
+    icon.classList.remove('fa-stop');
 }
 
 function hideGameButton() {
@@ -64,6 +103,7 @@ function startGameTimer() {
     timer = setInterval(()=> {
         if (remainingTimeSec <= 0 ) {
             clearInterval(timer);
+            finishGame(false);
             return
         }
         updateTimerText(--remainingTimeSec);
@@ -83,6 +123,10 @@ function updateTimerText(time) {
 function showPopUpWithText(text) {
     popUp.classList.remove('pop-up--hide');
     popUpText.innerText = text;
+}
+
+function hidePopUp() {
+    popUp.classList.add('pop-up--hide');
 }
 
 function initGame() {
@@ -115,22 +159,8 @@ function addItem(className, count, imgPath) {
 function randomNumber(min, max) {
     return Math.random() * (max - min) + min;
 }
-// 1. 시작 버튼을 누르면 10초 카운트 버튼 작동.
-// let count = 10;
-// startBtn.addEventListener('click', () => {
-//     let startCount = setInterval(()=> {
-//         if (count >= 0) {
-//             gameTimer.innerText = count;
-//             count -= 1;
-//         } else {
-//             count = 10;
-//             clearInterval(startCount);
-//         }
-//     }, 1000) 
-// })
 
-// 2. 랜덤으로 숫자 생성해서 위치 지정.
-// function putBugs() {
-//     let randomPosition = (Math.random() * content.height());
-//     console.log(randomPosition)
-// }
+popUpreDo.addEventListener('click', ()=> {
+    hidePopUp();
+    startGame();
+})
