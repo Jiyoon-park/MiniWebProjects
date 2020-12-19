@@ -3,6 +3,11 @@
 import PopUp from './popup.js';
 import * as sound from './sound.js';
 
+const gameFinishBanner = new PopUp();
+gameFinishBanner.setClickListener(() => {
+    startGame();
+})
+
 const field = document.querySelector('.game__field');
 const fieldRect = field.getBoundingClientRect();
 
@@ -65,7 +70,7 @@ function stopGame() {
     stopGameTimer();
     showStartButton();
     hideGameButton();
-    showPopUpWithText('REPLAY?');
+    gameFinishBanner.showWithText('REPLAY?')
     stopSound(bgSound);
 }
 
@@ -80,7 +85,7 @@ function finishGame(result) {
     } else {
         sound.playBug();
     }
-    showPopUpWithText(result? 'YOU WIN 🏆' : 'YOU LOST 💩');
+    gameFinishBanner.showWithText(result? 'YOU WIN 🏆' : 'YOU LOST 💩');
 }
 
 function showStopButton() {
@@ -128,14 +133,6 @@ function updateTimerText(time) {
     gameTimer.innerText = `${minutes}:${seconds}`;
 }
 
-function showPopUpWithText(text) {
-    popUp.classList.remove('pop-up--hide');
-    popUpText.innerText = text;
-}
-
-function hidePopUp() {
-    popUp.classList.add('pop-up--hide');
-}
 
 function initGame() {
     field.innerHTML = '';
@@ -167,8 +164,3 @@ function addItem(className, count, imgPath) {
 function randomNumber(min, max) {
     return Math.random() * (max - min) + min;
 }
-
-popUpreDo.addEventListener('click', ()=> {
-    hidePopUp();
-    startGame();
-})
