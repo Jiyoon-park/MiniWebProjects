@@ -5,7 +5,7 @@ import * as sound from './sound.js';
 import PopUp from './popup.js';
 
 const gameFinishBanner = new PopUp();
-const game = new GameBuilder().gameDuration(5).carrotCount(15).bugCount(15).build();
+const game = new GameBuilder().gameDuration(5).carrotCount(1).bugCount(15).build();
 
 game.setGameStopListener((result) => {
     let message;
