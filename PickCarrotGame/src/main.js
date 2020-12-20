@@ -1,18 +1,14 @@
 'use strict';
 
 import PopUp from './popup.js';
-import Game from './game.js';
-
-const CARROT_COUNT = 10;
-const BUG_COUNT = 10;
-const GAME_DURATION_SEC = 10;
+import GameBuilder from './game.js';
 
 const gameFinishBanner = new PopUp();
 gameFinishBanner.setClickListener(() => {
     game.start();
 })
 
-const game = new Game(GAME_DURATION_SEC, CARROT_COUNT, BUG_COUNT);
+const game = new GameBuilder().gameDuration(5).carrotCount(15).bugCount(15).build();
 game.setGameStopListener((result) => {
     let message;
     switch (result) {
@@ -25,6 +21,8 @@ game.setGameStopListener((result) => {
         case 'lose':
             message = 'YOU LOST 💩';
             break
+        default:
+            throw new Error('not valid reasult');
     }
     gameFinishBanner.showWithText(message);
 })
