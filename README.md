@@ -4,14 +4,16 @@
 
  
 
-## with Vanilla JavaScript
+## with Vanilla Javascript
 
-* [Form Validator](https://github.com/Jiyoon-park/MiniWebProjects/tree/master/FormValidator)
-* [Movie Seat Booking](https://github.com/Jiyoon-park/MiniWebProjects/tree/master/MovieSeatBooking)
-* [Custom Video Player](https://github.com/Jiyoon-park/MiniWebProjects/tree/master/CustomVideoPlayer)
+* Form Validator
+* Movie Seat Booking
+* Custom Video Player
+* Dom array methods
 * Exchage Rate Calculator
+* Shopping List
+* Pick Carrot Game
 
 ## with Vue.js
 
-* [My To Do List](https://github.com/Jiyoon-park/MiniWebProjects/tree/master/MyTodoList)
-
+* My To Do List
